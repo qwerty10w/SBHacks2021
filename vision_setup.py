@@ -1,5 +1,5 @@
 import io, os
-import cv2 as cv
+import cv2 as cvit
 # from numpy import random
 from google.cloud import vision
 from pillow_utility import draw_boundary, Image
