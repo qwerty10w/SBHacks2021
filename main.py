@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response
 from camera import VideoCamera
+from vision_setup2 import testfunct
 import cv2
 
 app = Flask(__name__)
@@ -13,6 +14,8 @@ def index():
 def gen(camera):
     while True:
         frame = camera.get_frame()
+        testfunct(frame)
+
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
