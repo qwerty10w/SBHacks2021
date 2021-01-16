@@ -21,9 +21,18 @@ def gen(camera):
     while True:
         framejpeg = camera.get_framejpeg()
         frame = camera.get_frame()
+<<<<<<< HEAD
         
         edited_frame = detect_objects(framejpeg, frame)
         
+=======
+        if framejpeg == False:
+            return render_template('error.html')
+        
+        edited_frame = detect_objects(framejpeg, frame)
+        
+
+>>>>>>> ab6719ac953fd18d482a419c2d879f26c427639f
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + edited_frame + b'\r\n\r\n')
 
