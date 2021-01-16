@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Response
 from camera import VideoCamera
-from vision_setup2 import testfunct
+from vision_setup import detect_objects
 import cv2
 
 app = Flask(__name__)
@@ -13,11 +13,16 @@ def index():
  
 def gen(camera):
     while True:
+        framejpeg = camera.get_framejpeg()
         frame = camera.get_frame()
-        testfunct(frame)
+        if framejpeg == False:
+            return render_template('error.html')
+        
+        edited_frame = detect_objects(framejpeg, frame)
+        
 
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + edited_frame + b'\r\n\r\n')
 
 @app.route('/video_feed')
 def video_feed():
