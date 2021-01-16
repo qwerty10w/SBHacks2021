@@ -5,12 +5,15 @@ from google.cloud import vision
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"lookout-301909-820693edeb59.json"
 client = vision.ImageAnnotatorClient()
 
+file_name = 'TestImage2.jpg'
+image_path = os.path.join('.\Images', file_name)
 
-def detect_objects(frameimg):
-    image = vision.Image(content=frameimg)
+with io.open(image_path, 'rb') as image_file:
+    content = image_file.read()
+
+    image = vision.Image(content=content)
     response = client.object_localization(image=image)
     localized_object_annotations = response.localized_object_annotations
-
     print(localized_object_annotations)
 
     draw_image = cv.imread(image_path)
@@ -26,4 +29,7 @@ def detect_objects(frameimg):
             font = cv.FONT_HERSHEY_SIMPLEX
             cv.putText(draw_image, 'Person', (int(obj.bounding_poly.normalized_vertices[0].x * width), int(obj.bounding_poly.normalized_vertices[0].y * height - 5)), font, 1, (b,g,r), lineType=cv.LINE_AA)
 
-    return draw_image
+    cv.imshow('image', draw_image)
+    k = cv.waitKey(0) & 0xFF
+    if(k == 27):
+        cv.destroyAllWindows()
