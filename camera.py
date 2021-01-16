@@ -11,7 +11,8 @@ class VideoCamera(object):
         ret, frame = self.video.read()
 
         # DO WHAT YOU WANT WITH TENSORFLOW / KERAS AND OPENCV
-
-        ret, jpeg = cv2.imencode('.jpg', frame)
-
-        return jpeg.tobytes()
+        try:
+            ret, jpeg = cv2.imencode('.jpg', frame)
+            return jpeg.tobytes()
+        except:
+            return False
