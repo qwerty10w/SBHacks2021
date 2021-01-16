@@ -16,11 +16,12 @@ def gen(camera):
         frame = camera.get_frame()
         if frame == False:
             return render_template('error.html')
-            
-        detect_objects(frame)
+        
+        edited_frame = detect_objects(frame)
+        
 
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + edited_frame + b'\r\n\r\n')
 
 @app.route('/video_feed')
 def video_feed():
