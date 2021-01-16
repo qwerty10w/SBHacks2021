@@ -13,7 +13,7 @@ def detect_objects(frameimg):
 
     print(localized_object_annotations)
 
-    draw_image = cv.imread(image_path)
+    draw_image = frameimg
     height, width, channels = draw_image.shape
     for obj in localized_object_annotations:
         if(obj.name == "Person"):
