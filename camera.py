@@ -7,7 +7,7 @@ class VideoCamera(object):
     def __del__(self):
         self.video.release()        
 
-    def get_frame(self):
+    def get_framejpeg(self):
         ret, frame = self.video.read()
 
         # DO WHAT YOU WANT WITH TENSORFLOW / KERAS AND OPENCV
@@ -16,3 +16,7 @@ class VideoCamera(object):
             return jpeg.tobytes()
         except:
             return False
+
+    def get_frame(self):
+        ret, frame = self.video.read()
+        return frame
