@@ -13,5 +13,7 @@ lookout-301909-820693edeb59.json
 # Image Data
 Images/
 
-#Phone IP
+# atom
+__pycache__/
+
 ip.txt
