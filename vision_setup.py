@@ -7,7 +7,7 @@ from pillow_utility import draw_boundary, Image
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"lookout-301909-820693edeb59.json"
 client = vision.ImageAnnotatorClient()
 
-file_name = 'TestImage.jpg'
+file_name = 'TestImage3.jpg'
 image_path = os.path.join('.\Images', file_name)
 
 with io.open(image_path, 'rb') as image_file:
@@ -30,7 +30,7 @@ for obj in localized_object_annotations:
     # r, g, b = random.randint(150, 255), random.randint(
     #     150, 255), random.randint(150, 255)
 
-    r, g, b = 0, 0, 0
+    r, g, b = 255, 0, 0
 
     draw_boundary(pillow_image, obj.bounding_poly, (r, g, b),
                  pillow_image.size, obj.name, obj.score)
