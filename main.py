@@ -5,22 +5,25 @@ import cv2
 
 app = Flask(__name__)
 
-video_stream = VideoCamera()
+with open('ip.txt', 'r') as file:
+    data = file.read()
+
+video_stream = VideoCamera(data)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if video_stream.get_framejpeg() == False:
+        return render_template('error.html')
+    else:
+        return render_template('index.html')
  
 def gen(camera):
     while True:
         framejpeg = camera.get_framejpeg()
         frame = camera.get_frame()
-        if framejpeg == False:
-            return render_template('error.html')
         
         edited_frame = detect_objects(framejpeg, frame)
         
-
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + edited_frame + b'\r\n\r\n')
 
