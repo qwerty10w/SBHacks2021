@@ -13,11 +13,12 @@ def index():
  
 def gen(camera):
     while True:
+        framejpeg = camera.get_framejpeg()
         frame = camera.get_frame()
-        if frame == False:
+        if framejpeg == False:
             return render_template('error.html')
         
-        edited_frame = detect_objects(frame)
+        edited_frame = detect_objects(framejpeg, frame)
         
 
         yield (b'--frame\r\n'
