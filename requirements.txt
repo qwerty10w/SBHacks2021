@@ -2,3 +2,4 @@ google-cloud-automl
 google-cloud-vision
 pillow
 flask
+opencv-python
