@@ -9,6 +9,9 @@
   <button type="button" onclick="activate()">Activate</button>
 
   <p id="Auth_count"></p>
+  <label for="ip_field">Using an ip webcam? Enter ip here: </label>
+
+  <input type="text" id="cam_ip" name="ip_field" placeholder="Enter ip here..." onkeydown="set_ip(this)"></input>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>
@@ -24,6 +27,20 @@
           p.innerHTML = data.num_authorized;
         }
       });
+    }
+  </script>
+  <script>
+    function set_ip(e) {
+      if(event.key=="Enter") {
+        $.ajax({
+          type: 'GET',
+          url: '/ip',
+          data: {"ip": e.value},
+          success: function(data) {
+            console.log(data.ip);
+          }
+        });
+      }
     }
   </script>
   </body>
