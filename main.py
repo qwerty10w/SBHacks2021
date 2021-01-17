@@ -27,7 +27,7 @@ def gen(camera):
             framejpeg, intruder = detect_objects(framejpeg, frame, 1)
 
         if(count == 100):
-            count = 0
+            count = 0 
 
         count += 1
 
