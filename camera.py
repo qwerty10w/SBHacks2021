@@ -14,10 +14,11 @@ class VideoCamera:
         ret, frame = self.video.read()
 
         # DO WHAT YOU WANT WITH TENSORFLOW / KERAS AND OPENCV
-        try:
-            ret, jpeg = cv.imencode('.jpg', frame)
-            return jpeg.tobytes()
-        except:
+        ret, jpeg = cv.imencode('.jpg', frame)
+        return jpeg.tobytes()
+
+        if not ret:
+            print(frame)
             return False
 
     def get_frame(self):

@@ -11,23 +11,25 @@ app = Flask(__name__)
 
 video_stream = VideoCamera()
 authorized = False
-
+n_authorized = 0
 
 @app.route('/')
 def index():
-    if video_stream.get_framejpeg() == False:
-        return render_template('error.html')
-    else:
-        return render_template('index.html')
+    # if video_stream.get_framejpeg():
+    #     return render_template('error.html')
+    # else:
+    return render_template('index.html')
 
 
-@app.route("/authorize")
+@app.route("/auth")
 def authorizer():
+    global video_stream
     frameimg = video_stream.get_framejpeg()
-    num_authorized = authorize(frameimg)
+    global n_authorized
+    n_authorized = authorize(frameimg)
     global authorized
     authorized = True
-    response = {"num_authorized": num_authorized}
+    response = {"num_authorized": n_authorized}
     return jsonify(response)
 
 
@@ -40,7 +42,8 @@ def gen(camera):
             frame = camera.get_frame()
 
             if(count % 10 == 0):
-                framejpeg, intruder = detect_objects(framejpeg, frame, 1)
+                global n_authorized
+                framejpeg, intruder = detect_objects(framejpeg, frame, n_authorized)
 
             if(count == 100):
                 count = 0
@@ -51,12 +54,10 @@ def gen(camera):
                 meme()
                 authorized = False
 
-            yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
+            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
 
         framejpeg = camera.get_framejpeg()
-        yield (b'--frame\r\n'
-           b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
+        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
 
 
 @app.route('/video_feed')
