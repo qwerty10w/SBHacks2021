@@ -3,7 +3,7 @@ import cv2 as cv
 
 class VideoCamera:
     def __init__(self, ip=0):
-        self.video = cv.VideoCapture('http://192.168.86.52:8080/video')
+        self.video = cv.VideoCapture('http://10.0.0.206:8080/video')
 
     def __del__(self):
         self.video.release()

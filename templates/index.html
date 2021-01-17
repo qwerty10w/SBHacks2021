@@ -5,5 +5,23 @@
   </head>
   <body>
   <img src="http://localhost:5000/video_feed" width="640" height="480"/>
+  <button type="button" onclick="activate()">Activate</button>
+  <p id="Auth_count"></p>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    function activate() {
+      var p = document.getElementById("Auth_count");
+      console.log("Button pressed");
+      $.ajax({
+        type: 'GET',
+        url: '/authorize',
+        success: function(data) {
+          console.log("Activation successful");
+          alert("Activation successful");
+          p.innerHTML = data.num_authorized;
+        }
+      });
+    }
+  </script>
   </body>
 </html>
