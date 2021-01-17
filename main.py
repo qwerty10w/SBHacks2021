@@ -37,6 +37,7 @@ def gen(camera):
 
         if not memed and intruder:
             meme()
+            memed = True
 
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
