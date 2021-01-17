@@ -21,6 +21,8 @@ def gen(camera):
     count = 0
     while True:
         framejpeg = camera.get_framejpeg()
+        if framejpeg == False:
+            break
         frame = camera.get_frame()
         
         if (count % 5) == 0:
