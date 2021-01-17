@@ -12,7 +12,6 @@ app = Flask(__name__)
 
 video_stream = VideoCamera()
 authorized = False
-# n_authorized = 0
 make_auth = False
 
 
@@ -26,11 +25,6 @@ def index():
 
 @app.route("/auth")
 def authorizer():
-    # pdb.set_trace()
-    # global video_stream
-    # frameimg = video_stream.get_framejpeg()
-    # global n_authorized
-    # n_authorized = authorize(frameimg)
     global authorized
     authorized = True
     global make_auth
@@ -47,6 +41,7 @@ def gen(camera):
         if make_auth:
             framejpeg = camera.get_framejpeg()
             n_authorized = authorize(framejpeg)
+            print("authorized at {} people".format(n_authorized))
 
         while authorized:
             framejpeg = camera.get_framejpeg()
@@ -54,7 +49,8 @@ def gen(camera):
 
             if(count % 10 == 0):
                 # global n_authorized
-                framejpeg, intruder = detect_objects(framejpeg, frame, n_authorized)
+                framejpeg, intruder, num = detect_objects(framejpeg, frame, n_authorized)
+                print(num, intruder)
 
             if(count == 100):
                 count = 0

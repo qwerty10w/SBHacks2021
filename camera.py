@@ -11,11 +11,15 @@ class VideoCamera:
         self.video.release()
 
     def get_framejpeg(self):
-
         ret, frame = self.video.read()
+
+        # Check for no webcam
+        # if not ret:
+        #     return False
 
         # DO WHAT YOU WANT WITH TENSORFLOW / KERAS AND OPENCV
         ret, jpeg = cv.imencode('.jpg', frame)
+
         return jpeg.tobytes()
 
         if not ret:
