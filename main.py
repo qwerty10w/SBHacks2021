@@ -64,6 +64,7 @@ def gen(camera):
             if intruder:
                 meme()
                 authorized = False
+                make_auth = False
 
             yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
 
