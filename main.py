@@ -41,7 +41,7 @@ def gen(camera):
         if make_auth:
             framejpeg = camera.get_framejpeg()
             n_authorized = authorize(framejpeg)
-            print("authorized at {} people".format(n_authorized))
+            print("Authorized at {} people".format(n_authorized))
 
         while authorized:
             framejpeg = camera.get_framejpeg()
@@ -49,8 +49,7 @@ def gen(camera):
 
             if(count % 10 == 0):
                 # global n_authorized
-                framejpeg, intruder, num = detect_objects(framejpeg, frame, n_authorized)
-                print(num, intruder)
+                framejpeg, intruder = detect_objects(framejpeg, frame, n_authorized)
 
             if(count == 100):
                 count = 0
