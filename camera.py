@@ -8,9 +8,6 @@ class VideoCamera:
 
     def __init__(self, ip=0):
         self.video = cv.VideoCapture(ip)
-        # self.video = cv.VideoCapture('https://10.0.0.206:8080/video')
-        # https://10.0.0.206:8080/video ANDY
-        # https://192.168.86.52:8080/video NEIL
 
     def __del__(self):
         self.video.release()
