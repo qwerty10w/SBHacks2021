@@ -4,6 +4,44 @@
     <title>Video Stream</title>
   </head>
   <body>
-  <img src="http://localhost:5000/video_feed" />
+  <img src="http://localhost:5000/video_feed" width="640" height="480"/>
+
+  <button type="button" onclick="activate()">Activate</button>
+
+  <p id="Auth_count"></p>
+  <label for="ip_field">Using an ip webcam? Enter ip here: </label>
+
+  <input type="text" id="cam_ip" name="ip_field" placeholder="Enter ip here..." onkeydown="set_ip(this)"></input>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    function activate() {
+      var p = document.getElementById("Auth_count");
+      console.log("Button pressed");
+      $.ajax({
+        type: 'GET',
+        url: '/auth',
+        success: function(data) {
+          console.log("Activation successful");
+          alert("Activation successful");
+          p.innerHTML = data.num_authorized;
+        }
+      });
+    }
+  </script>
+  <script>
+    function set_ip(e) {
+      if(event.key=="Enter") {
+        $.ajax({
+          type: 'GET',
+          url: '/ip',
+          data: {"ip": e.value},
+          success: function(data) {
+            console.log(data.ip);
+          }
+        });
+      }
+    }
+  </script>
   </body>
 </html>
