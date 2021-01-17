@@ -25,6 +25,7 @@ def index():
 def authorizer():
     frameimg = video_stream.get_framejpeg()
     num_authorized = authorize(frameimg)
+    global authorized
     authorized = True
     response = {"num_authorized": num_authorized}
     return jsonify(response)
@@ -33,6 +34,7 @@ def authorizer():
 def gen(camera):
     while True:
         count = 0
+        global authorized
         while authorized:
             framejpeg = camera.get_framejpeg()
             frame = camera.get_frame()
@@ -50,11 +52,11 @@ def gen(camera):
                 authorized = False
 
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
 
         framejpeg = camera.get_framejpeg()
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
+           b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
 
 
 @app.route('/video_feed')
