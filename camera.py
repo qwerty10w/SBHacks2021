@@ -3,6 +3,7 @@ import cv2
 class VideoCamera:
     def __init__(self, ip=0):
         self.video = cv2.VideoCapture(ip)
+ 
 
     def __del__(self):
         self.video.release()        
