@@ -2,10 +2,10 @@ import cv2
 
 class VideoCamera:
     def __init__(self, ip=0):
-        self.video = cv2.VideoCapture(ip)
+        self.video = cv2.VideoCapture('http://192.168.86.52:8080/video')
 
     def __del__(self):
-        self.video.release()        
+        self.video.release()
 
     def get_framejpeg(self):
         ret, frame = self.video.read()

@@ -16,16 +16,24 @@ def index():
         return render_template('error.html')
     else:
         return render_template('index.html')
- 
+
 def gen(camera):
+    count = 0
     while True:
         framejpeg = camera.get_framejpeg()
         frame = camera.get_frame()
-        
-        edited_frame = detect_objects(framejpeg, frame)
-        
+
+        if(count % 10 == 0):
+            framejpeg, intruder = detect_objects(framejpeg, frame, 1)
+
+        if(count == 100):
+            count = 0
+
+        count += 1
+
+
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + edited_frame + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + framejpeg + b'\r\n\r\n')
 
 @app.route('/video_feed')
 def video_feed():
