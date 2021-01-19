@@ -34,7 +34,7 @@ def detect_objects(frameimg, frame, num_authorized):
                 obj.bounding_poly.normalized_vertices[0].y * height - 5)), font, 1, (b, g, r), lineType=cv.LINE_AA)
 
     # Detect Action Cases
-    if num_present > num_authorized or num_present == 0:
+    if num_present > num_authorized or (num_present == 0 and num_authorized > 0):
         intruder = True
 
     # print(num_present)
